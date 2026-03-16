@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="app">
       <nav className="navbar">
-        <h1>🌍 Faso</h1>
+        <h1><img src="/logo.svg" alt="Faso" style={{height:'36px', marginRight:'8px', verticalAlign:'middle'}}/> Faso</h1>
         <div className="nav-links">
           <button onClick={() => setPage('feed')} className={page === 'feed' ? 'active' : ''}>
             Fil d'actualité
