@@ -3,6 +3,8 @@ import { supabase } from './supabase';
 import Auth from './components/Auth';
 import Feed from './components/Feed';
 import Profile from './components/Profile';
+import Search from './components/Search';
+import Messages from './components/Messages';
 import './styles/App.css';
 
 function App() {
@@ -13,38 +15,45 @@ function App() {
     supabase.auth.getSession().then(({ data }) => {
       setUser(data.session?.user || null);
     });
-
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
     });
-
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
+  const handleLogout = async () => await supabase.auth.signOut();
 
   if (!user) return <Auth />;
 
   return (
     <div className="app">
       <nav className="navbar">
-        <h1><img src="/logo.svg" alt="Faso" style={{height:'36px', marginRight:'8px', verticalAlign:'middle'}}/> Faso</h1>
+        <h1>
+          <img src="/logo.svg" alt="Faso" style={{height:'30px'}}/>
+          FASO
+        </h1>
         <div className="nav-links">
           <button onClick={() => setPage('feed')} className={page === 'feed' ? 'active' : ''}>
-            Fil d'actualité
+            🏠
+          </button>
+          <button onClick={() => setPage('search')} className={page === 'search' ? 'active' : ''}>
+            🔍
+          </button>
+          <button onClick={() => setPage('messages')} className={page === 'messages' ? 'active' : ''}>
+            💬
           </button>
           <button onClick={() => setPage('profile')} className={page === 'profile' ? 'active' : ''}>
-            Mon Profil
+            👤
           </button>
           <button onClick={handleLogout} className="logout-btn">
-            Déconnexion
+            ⏻
           </button>
         </div>
       </nav>
-      <main className="main-content">
+      <main className="main-content" style={page === 'messages' ? {maxWidth:'100%', padding:0} : {}}>
         {page === 'feed' && <Feed user={user} />}
+        {page === 'search' && <Search user={user} />}
+        {page === 'messages' && <Messages user={user} />}
         {page === 'profile' && <Profile user={user} />}
       </main>
     </div>
