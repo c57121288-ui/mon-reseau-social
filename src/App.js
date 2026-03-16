@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="app">
       <nav className="navbar">
-        <h1>🌍 MonReseau</h1>
+        <h1>🌍 Faso</h1>
         <div className="nav-links">
           <button onClick={() => setPage('feed')} className={page === 'feed' ? 'active' : ''}>
             Fil d'actualité

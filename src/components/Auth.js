@@ -30,7 +30,7 @@ function Auth() {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>🌍 MonReseau</h2>
+        <h2>🌍 Faso</h2>
         <h3>{isLogin ? 'Connexion' : 'Créer un compte'}</h3>
 
         {!isLogin && (
